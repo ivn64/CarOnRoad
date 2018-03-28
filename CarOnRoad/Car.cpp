@@ -79,6 +79,11 @@ void Car::RotateLeft()
 	angle += 0.3;
 }
 
+void Car::RotateRight()
+{
+	angle -= 0.3;
+}
+
 Car::~Car()
 {
 }

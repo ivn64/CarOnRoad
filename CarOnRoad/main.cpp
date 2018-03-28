@@ -46,7 +46,7 @@ void processSpecialKeys(int key, int x, int y)
 	break;
 	case GLUT_KEY_RIGHT:
 	{
-
+		myCar.RotateRight();
 	}
 	break;
 	}

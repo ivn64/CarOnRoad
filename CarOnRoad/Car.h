@@ -2,9 +2,9 @@
 
 class Car
 {
-	int xPosition;
-	int yPosition;
-	int radius;
+	float xPosition;
+	float yPosition;
+	float radius;
 	float angle;
 public:
 	Car();
@@ -17,6 +17,7 @@ public:
 	void SetYPosition(int);
 	void MoveForward();
 	void RotateLeft();
+	void RotateRight();
 	~Car();
 };
 
