@@ -9,12 +9,13 @@ Car::Car()
 	xPosition = 20;
 	yPosition = 20;
 	radius = 5;
+	angle = 2;
 }
 
 void Car::Draw()
 {
 	glBegin(GL_LINE_LOOP);
-	glColor3f(1.0, 1.0, 1.0); //цвет красный
+	glColor3f(1.0, 1.0, 1.0); //цвет
 
 	int amountSegments = 30;
 	for (int i = 0; i < amountSegments; i++)
@@ -26,6 +27,14 @@ void Car::Draw()
 
 		glVertex2f(xPosition + dx, yPosition + dy);
 	}
+	glEnd();
+
+	glBegin(GL_LINES);//начало рисования линий
+	glColor3f(1.0, 1.0, 1.0); //цвет
+
+	glVertex2f(xPosition, yPosition);
+	glVertex2f(xPosition+radius*cos(angle), yPosition + radius * sin(angle));
+
 	glEnd();
 }
 
@@ -57,6 +66,17 @@ int Car::GetYPosition()
 void Car::SetYPosition(int y)
 {
 	yPosition = y;
+}
+
+void Car::MoveForward()
+{
+	xPosition = xPosition + cos(angle);
+	yPosition = yPosition + sin(angle);
+}
+
+void Car::RotateLeft()
+{
+	angle += 0.3;
 }
 
 Car::~Car()

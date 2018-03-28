@@ -31,7 +31,7 @@ void processSpecialKeys(int key, int x, int y)
 	{
 	case GLUT_KEY_UP:
 	{
-
+		myCar.MoveForward();
 	}
 	break;
 	case GLUT_KEY_DOWN:
@@ -41,12 +41,12 @@ void processSpecialKeys(int key, int x, int y)
 	break;
 	case GLUT_KEY_LEFT:
 	{
-		
+		myCar.RotateLeft();
 	}
 	break;
 	case GLUT_KEY_RIGHT:
 	{
-		myCar.SetXPosition(myCar.GetXPosition() + 1);
+
 	}
 	break;
 	}
