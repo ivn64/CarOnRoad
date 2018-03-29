@@ -16,7 +16,6 @@ Car::Car()
 
 void Car::Draw()
 {
-	//message = "gtrrr";
 	glRasterPos2f(100, 90);
 	for (int i = 0; i<message.length(); i++)
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, message[i]);
@@ -81,9 +80,27 @@ void Car::MoveForward(Road tRoad)
 	tYPosition = yPosition + sin(angle);
 	if (tXPosition + radius <= tRoad.GetXRightSolidLine() && tXPosition - radius >= tRoad.GetXLeftSolidLine())
 	{
+		if (isRightLane == true && tYPosition > yPosition || isRightLane == false && tYPosition < yPosition)
+			message = "";
+		else
+		{
+			message = "oncoming traffic";
+		}
+		if (tXPosition<tRoad.GetXCenterDottedLine() && isRightLane == true || tXPosition>tRoad.GetXCenterDottedLine() && isRightLane == false)
+		{
+			if (tYPosition > tRoad.GetY1Gap1() && tYPosition<tRoad.GetY2Gap1() || tYPosition>tRoad.GetY1Gap2() && tYPosition < tRoad.GetY2Gap2())
+			{
+				message = "reverse";
+			}
+			else
+				message = "intersection";
+		}
 		xPosition = tXPosition;
 		yPosition = tYPosition;
-		message = "";
+		if (xPosition < tRoad.GetXCenterDottedLine())
+			isRightLane = false;
+		else
+			isRightLane = true;
 	}
 	else
 	{

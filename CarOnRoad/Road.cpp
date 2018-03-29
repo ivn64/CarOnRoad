@@ -51,3 +51,28 @@ int Road::GetXRightSolidLine()
 {
 	return xRightSolidLine;
 }
+
+int Road::GetXCenterDottedLine()
+{
+	return xCenterDottedLine;
+}
+
+int Road::GetY1Gap1()
+{
+	return y1Gap1;
+}
+
+int Road::GetY2Gap1()
+{
+	return y2Gap1;
+}
+
+int Road::GetY1Gap2()
+{
+	return y1Gap2;
+}
+
+int Road::GetY2Gap2()
+{
+	return y2Gap2;
+}
