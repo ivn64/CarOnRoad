@@ -13,6 +13,8 @@ class Car
 	float angle;
 	string message;
 	bool isRightLane;
+	bool isTurn;
+	float yTurnPosition;
 public:
 	Car();
 	void Draw();
