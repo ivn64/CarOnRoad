@@ -15,12 +15,24 @@
 Car myCar;
 Road myRoad;
 
+void draw_string_bitmap(void *font, const char* string)
+{
+	while (*string)
+		glutBitmapCharacter(font, *string++);
+}
+
 void Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT); /*Функция очищения экрана*/
-
 	myRoad.Draw();
 	myCar.Draw();
+
+
+	/*char str[] = "EEEEEEEEEEEE";
+	glRasterPos2f(100, 90);
+	for (int i = 0; str[i] != '\0'; i++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, str[i]);*/
+
 	glutSwapBuffers();
 	//glFlush(); /*Отрисовывает всё, что мы описали*/
 }
@@ -31,7 +43,7 @@ void processSpecialKeys(int key, int x, int y)
 	{
 	case GLUT_KEY_UP:
 	{
-		myCar.MoveForward();
+		myCar.MoveForward(myRoad);
 	}
 	break;
 	case GLUT_KEY_DOWN:
@@ -59,7 +71,7 @@ void main(int argc, char **argv)
 	glutInitWindowSize(700, 700); //Устанавливаем размер окна
 	glutInitWindowPosition(100, 140); //Расположение окна (x,y)
 	glutCreateWindow("CarOnRoad"); //Команда для создания окна
-	glClearColor(0.0, 0.0, 0.0, 0.0);//Заполним экран фоном
+	glClearColor(0.0, 0.5, 0.0, 0.0);//Заполним экран фоном
 	glMatrixMode(GL_PROJECTION); //Настроим 2-х мерный вид
 	glLoadIdentity();
 	//glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0); /*Задаём в каких пределах изменяеются координаты x,y,z*/

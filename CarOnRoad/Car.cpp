@@ -6,14 +6,22 @@
 
 Car::Car()
 {
-	xPosition = 20;
+	xPosition = 120;
 	yPosition = 20;
 	radius = 5;
 	angle = 2;
+	message = "";
+	isRightLane = true;
 }
 
 void Car::Draw()
 {
+	//message = "gtrrr";
+	glRasterPos2f(100, 90);
+	for (int i = 0; i<message.length(); i++)
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, message[i]);
+
+
 	glBegin(GL_LINE_LOOP);
 	glColor3f(1.0, 1.0, 1.0); //цвет
 
@@ -28,13 +36,10 @@ void Car::Draw()
 		glVertex2f(xPosition + dx, yPosition + dy);
 	}
 	glEnd();
-
 	glBegin(GL_LINES);//начало рисования линий
 	glColor3f(1.0, 1.0, 1.0); //цвет
-
 	glVertex2f(xPosition, yPosition);
 	glVertex2f(xPosition+radius*cos(angle), yPosition + radius * sin(angle));
-
 	glEnd();
 }
 
@@ -68,10 +73,22 @@ void Car::SetYPosition(int y)
 	yPosition = y;
 }
 
-void Car::MoveForward()
+void Car::MoveForward(Road tRoad)
 {
-	xPosition = xPosition + cos(angle);
-	yPosition = yPosition + sin(angle);
+	float tXPosition;
+	float tYPosition;
+	tXPosition = xPosition + cos(angle);
+	tYPosition = yPosition + sin(angle);
+	if (tXPosition + radius <= tRoad.GetXRightSolidLine() && tXPosition - radius >= tRoad.GetXLeftSolidLine())
+	{
+		xPosition = tXPosition;
+		yPosition = tYPosition;
+		message = "";
+	}
+	else
+	{
+		message = "intersection";
+	}
 }
 
 void Car::RotateLeft()
