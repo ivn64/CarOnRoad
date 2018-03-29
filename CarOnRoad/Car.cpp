@@ -3,7 +3,6 @@
 
 #include <cmath>
 
-
 Car::Car()
 {
 	xPosition = 120;
@@ -13,6 +12,7 @@ Car::Car()
 	message = "";
 	isRightLane = true;
 	isTurn = false;
+	yTurnPosition = -50;
 }
 
 void Car::Draw()
@@ -20,11 +20,8 @@ void Car::Draw()
 	glRasterPos2f(5, 90);
 	for (int i = 0; i<message.length(); i++)
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, message[i]);
-
-
 	glBegin(GL_LINE_LOOP);
-	glColor3f(1.0, 1.0, 1.0); //цвет
-
+	glColor3f(1.0, 1.0, 1.0);
 	int amountSegments = 30;
 	for (int i = 0; i < amountSegments; i++)
 	{
@@ -36,8 +33,8 @@ void Car::Draw()
 		glVertex2f(xPosition + dx, yPosition + dy);
 	}
 	glEnd();
-	glBegin(GL_LINES);//начало рисования линий
-	glColor3f(1.0, 1.0, 1.0); //цвет
+	glBegin(GL_LINES);
+	glColor3f(1.0, 1.0, 1.0);
 	glVertex2f(xPosition, yPosition);
 	glVertex2f(xPosition+radius*cos(angle), yPosition + radius * sin(angle));
 	glEnd();
@@ -83,8 +80,19 @@ void Car::MoveForward(Road tRoad)
 	{
 		if (isRightLane == true && tYPosition > yPosition || isRightLane == false && tYPosition < yPosition)
 		{
-			message = "ok";
-			isTurn = false;
+			if (isTurn == true && isRightLane == false && yTurnPosition - 5 < tYPosition)
+				message = "turn";
+			else
+			{
+				if (isTurn == true && isRightLane == true && yTurnPosition + 5 > tYPosition)
+					message = "turn";
+				else
+				{
+					isTurn == true ? message = "turn is done" : message = "ok";
+					isTurn = false;
+					yTurnPosition = -50;
+				}
+			}
 		}
 		else
 		{
@@ -95,7 +103,11 @@ void Car::MoveForward(Road tRoad)
 				if (isTurn == true && isRightLane == true && yTurnPosition - 5 < tYPosition)
 					message = "turn";
 				else
+				{
 					message = "oncoming traffic";
+					isTurn = false;
+					yTurnPosition = -50;
+				}
 			}
 		}
 		if (tXPosition<tRoad.GetXCenterDottedLine() && isRightLane == true || tXPosition>tRoad.GetXCenterDottedLine() && isRightLane == false)
@@ -136,4 +148,5 @@ void Car::RotateRight()
 
 Car::~Car()
 {
+
 }

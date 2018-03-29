@@ -1,8 +1,6 @@
 #include "Road.h"
 #include "glut.h"
 
-
-
 Road::Road()
 {
 	xLeftSolidLine = 50;
@@ -14,15 +12,15 @@ Road::Road()
 	y2Gap2 = 170;
 }
 
-
 Road::~Road()
 {
+
 }
 
 void Road::Draw()
 {
-	glBegin(GL_LINES);//начало рисования линий
-	glColor3f(1.0, 1.0, 1.0); //цвет красный
+	glBegin(GL_LINES);
+	glColor3f(1.0, 1.0, 1.0);
 
 	glVertex2f(xLeftSolidLine, 0);
 	glVertex2f(xLeftSolidLine, 200);
